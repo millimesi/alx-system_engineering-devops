@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # only shows listening sockets
 # shows the PID and name of the program to which each socket belongs
 ping -c 5 $1
