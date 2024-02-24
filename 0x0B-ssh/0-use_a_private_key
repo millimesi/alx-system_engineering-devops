@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#connects with remote server using pirvate ssh rsa key
+ssh -i ~/.ssh/school ubuntu@52.23.212.96
