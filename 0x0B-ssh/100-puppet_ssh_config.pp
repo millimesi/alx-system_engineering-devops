@@ -1,5 +1,5 @@
 # create a file in /tmp
-file {'~/.ssh/school':
+file {'~/.ssh/school/config':
     ensure  => file,
     content => "
         Host *
