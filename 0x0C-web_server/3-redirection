@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#install and configure Nginx in server 
+#update the package
+sudo apt-get update
+
+#install Nginx with yes 
+sudo apt-get -y install nginx
+
+# NGINX configuration file path
+nginx_conf="/etc/nginx/sites-available/default"
+
+# Backup NGINX configuration file
+sudo cp "$nginx_conf" "$nginx_conf.backup"
+
+# append redirection configuration to NGINX configuration file
+sudo sed -i '/server_name _;/a\\tlocation /redirect_me {\n            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}' "$nginx_conf"
+
+# Test NGINX configuration 
+sudo nginx -t
+
+#reload NGINX
+sudo systemctl reload nginx

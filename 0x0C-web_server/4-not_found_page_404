@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#install and configure Nginx in server 
+#update the package
+sudo apt-get update
+
+#install Nginx with yes 
+sudo apt-get -y install nginx
+
+# NGINX configuration file path
+nginx_conf="/etc/nginx/sites-available/default"
+
+# Backup NGINX configuration file
+sudo cp "$nginx_conf" "$nginx_conf.backup"
+
+#custom path
+custom_404_path="/usr/share/nginx/html/404.html"
+
+# create not found 404 page
+echo "Ceci n'est pas une page" | sudo tee "$custom_404_path"
+
+# append redirection configuration to NGINX configuration file
+sudo sed -i "/server_name _;/a\\\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}" "$nginx_conf"
+
+# Test NGINX configuration 
+sudo nginx -t
+
+#reload NGINX
+sudo systemctl reload nginx
