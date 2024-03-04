@@ -12,7 +12,7 @@ sudo sed -i 's/80 default_server/80 default_server/g' /etc/nginx/sites-available
 #Restart the Nginx  with out systemctl
 sudo service nginx restart
 
-#create html file by first creating the directory
+#create html file by first creating thecta directory
 sudo mkdir -p /var/www/html
 #take ownership
 sudo chown -R $USER:$USER /var/www/html
