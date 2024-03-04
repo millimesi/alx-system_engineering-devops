@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#install and configure Nginx in server 
+#update the package
+sudo apt-get update
+
+#install Nginx with yes 
+sudo apt-get -y install nginx
+
+# NGINX configuration file path
+nginx_conf="/etc/nginx/sites-available/default"
+
+# Backup NGINX configuration file
+sudo cp "$nginx_conf" "$nginx_conf.backup"
+
+#configure Nginx to listen the port 80
+sudo sed -i 's/80 default_server/80 default_server/g' /etc/nginx/sites-available/default
+
+# append redirection configuration to NGINX configuration file
+sudo sed -i '/server_name _;/a\\tlocation /redirect_me {\n            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}' "$nginx_conf"
+
+#custom path
+custom_404_path="/usr/share/nginx/html/404.html"
+
+# create not found 404 page
+echo "Ceci n'est pas une page" | sudo tee "$custom_404_path"
+
+# append redirection configuration to NGINX configuration file
+sudo sed -i "/server_name _;/a\\\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}" "$nginx_conf"
+
+# Test NGINX configuration 
+sudo nginx -t
+
+#Restart the Nginx  with out systemctl
+sudo service nginx restart
+
+#create html file by first creating thecta directory
+sudo mkdir -p /var/www/html
+#take ownership
+sudo chown -R $USER:$USER /var/www/html
+echo "Hello World!" > /var/www/html/index.html

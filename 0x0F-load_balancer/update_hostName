@@ -1,0 +1,5 @@
+#!/bin/bash
+#change the host name in /etc/hosts file
+sudo sed -i 's/271700-web/123058092-web/g' /etc/hosts
+sudo hostnamectl set-hostname 123058092-web-02
+hostname
