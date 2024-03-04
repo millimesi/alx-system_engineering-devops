@@ -6,6 +6,18 @@ sudo apt-get update
 #install Nginx with yes 
 sudo apt-get -y install nginx
 
+#configure Nginx 
+sudo sed -i 's/80 default_server/80 default_server/g' /etc/nginx/sites-available/default
+
+#Restart the Nginx  with out systemctl
+sudo service nginx restart
+
+#create html file by first creating thecta directory
+sudo mkdir -p /var/www/html
+#take ownership
+sudo chown -R $USER:$USER /var/www/html
+echo "Hello World!" > /var/www/html/index.html
+
 # NGINX configuration file path
 nginx_conf="/etc/nginx/sites-available/default"
 
