@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# keep mysql database backup
+# Date
+date=$(date +"%d-%m-%Y")
+
+# mysql dumb
+mysqldump -u root -p"$1" --all-databases > "backup.sql"
+
+# commpress the backup
+tar -czvf "$date.tar.gz" "backup.sql"
