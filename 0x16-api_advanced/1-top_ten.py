@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+APi advanced
+'''
 import requests
 
 
@@ -18,8 +21,8 @@ def top_ten(subreddit):
 
         data = response.json()
         if 'data' in data and 'children' in data['data']:
-                for post in data['data']['children']:
-                    print(post['data']['title'])
+            for post in data['data']['children']:
+                print(post['data']['title'])
         else:
             print("None")
     except requests.exceptions.RequestException:

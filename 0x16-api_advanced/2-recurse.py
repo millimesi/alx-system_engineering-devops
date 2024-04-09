@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+Api Advanced
+'''
 import requests
 
 
@@ -14,8 +17,10 @@ def recurse(subreddit, hot_list=[], after="", count=0):
         "count": count,
         "limit": 100
     }
-    
-    response = requests.get(api_url, allow_redirects=False, params=params, headers=headers)
+
+    response = requests.get(
+        api_url, allow_redirects=False, params=params, headers=headers
+        )
     if response.status_code == 200:
         results = response.json().get("data")
         after = results.get("after")

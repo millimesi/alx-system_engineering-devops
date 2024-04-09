@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+APi advanced
+'''
 import requests
 
 
@@ -9,7 +12,7 @@ def count_words(subreddit, word_list, after=None, counts={}):
     '''
     api_url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=100"
     headers = {"User-Agent": "Reddit API v1.0"}
-    
+
     params = {}
     if after:
         params["after"] = after
@@ -36,6 +39,6 @@ def count_words(subreddit, word_list, after=None, counts={}):
         count_words(subreddit, word_list, after, counts)
     else:
         sorted_count = sorted(counts.items(),
-                               key=lambda x: (-x[1], x[0].lower()))
+                              key=lambda x: (-x[1], x[0].lower()))
         for w, count in sorted_count:
             print(f"{w.lower()}: {count}")
